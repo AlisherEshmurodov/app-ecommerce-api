@@ -12,6 +12,6 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // faqat product seeder bn product factory qoldi
     }
 }
