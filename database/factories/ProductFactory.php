@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+//use Faker\Factory as Faker;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,8 +17,22 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+
+        $faker = \Faker\Factory::create('ru_RU');
+
         return [
-            //
+            "category_id" => rand(1, 4),
+            "name" => [
+                "eng" => fake()->sentence(3),
+//                "ru" => $faker->realText
+                "ru" => "Комплекты спальной мебели"
+            ],
+            "price" => rand(50000, 1000000),
+            "description" => [
+                "eng" => fake()->paragraph(5),
+                "ru" => "Матрасы. Беспружинные матрасы отличаются лёгкостью и долгим сроком службы.
+                При выборе пружинного матраса рекомендуется отдавать предпочтение вариантам с независимыми друг от друга пружинами."
+            ]
         ];
     }
 }

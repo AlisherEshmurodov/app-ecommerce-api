@@ -8,6 +8,7 @@ use Spatie\Translatable\HasTranslations;
 
 /**
  * @method static create(array $array)
+ * @method static find($value_id)
  */
 class Value extends Model
 {
