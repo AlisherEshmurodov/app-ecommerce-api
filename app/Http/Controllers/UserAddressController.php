@@ -8,49 +8,28 @@ use App\Models\UserAddress;
 
 class UserAddressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        return UserAddress::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreUserAddressRequest $request)
     {
-        //
+        auth()->user()->userAddresses()->create($request->toArray());
+        return response()->json([
+            "success" => true
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(UserAddress $userAddress)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UserAddress $userAddress)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateUserAddressRequest $request, UserAddress $userAddress)
     {
         //
@@ -61,6 +40,17 @@ class UserAddressController extends Controller
      */
     public function destroy(UserAddress $userAddress)
     {
-        //
+        if (UserAddress::where("id", $userAddress->id)->exists()) {
+            UserAddress::where("id", $userAddress->id)->delete();
+            return response()->json([
+                "success" => true
+            ]);
+        }
+        else {
+            return response()->json([
+                "success" => false,
+                "message" => "address not found in this user"
+            ]);
+        }
     }
 }
