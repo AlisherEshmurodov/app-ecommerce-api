@@ -27,7 +27,7 @@ class DeliveryMethodSeeder extends Seeder
 
         DeliveryMethod::create([
             "name" => [
-                "eng" => "Standart",
+                "eng" => "Standard",
                 "ru" => "Стандарт",
             ],
             "estimated_time" => [

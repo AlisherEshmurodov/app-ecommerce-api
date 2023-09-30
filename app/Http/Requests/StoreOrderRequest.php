@@ -24,11 +24,11 @@ class StoreOrderRequest extends FormRequest
         return [
             "delivery_method_id" => 'required|numeric',
             "payment_type_id" => 'required|numeric',
-            "products" => 'required|array:product_id, stock_id, quantity',
-            'product.*.product_id' => 'required|numeric',
-            'product.*.quantity' => 'required|numeric',
-            'product.*.stock_id' => 'nullable|numeric',
-            'comment' => 'required|max:500'
+            "products" => 'required|array',
+            'products.*.product_id' => 'required|numeric',
+            'products.*.quantity' => 'required|numeric',
+            'products.*.stock_id' => 'nullable|numeric',
+            'comments' => 'required|max:500'
         ];
     }
 }

@@ -24,7 +24,6 @@ class ProductFactory extends Factory
             "category_id" => rand(1, 4),
             "name" => [
                 "eng" => fake()->sentence(3),
-//                "ru" => $faker->realText
                 "ru" => "Комплекты спальной мебели"
             ],
             "price" => rand(50000, 1000000),

@@ -36,7 +36,7 @@ class PaymentTypeSeeder extends Seeder
 
         PaymentType::create([
             "name" => [
-                "eng" => "paye",
+                "eng" => "payme",
                 "ru" => "payme"
             ]
         ]);
