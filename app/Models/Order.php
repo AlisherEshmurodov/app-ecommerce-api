@@ -11,12 +11,17 @@ class Order extends Model
 
     protected $fillable = [
         "user_id",
-        "comments",
         "delivery_method_id",
         "payment_type_id",
+        "comments",
         "total_sum",
         "address_id",
         "products",
+    ];
+
+    protected $casts = [
+        'products' => 'array',
+        'address' => 'array',
     ];
 
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
+use App\Models\UserAddress;
+use function Ramsey\Uuid\Lazy\toString;
 
 class OrderController extends Controller
 {
@@ -12,7 +14,8 @@ class OrderController extends Controller
 
     public function index()
     {
-        return Order::all();
+
+        return auth()->user()->orders;
     }
 
 
@@ -24,7 +27,26 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
-        dd($request);
+        $sum = 10;
+        $address = UserAddress::find($request->address_id);
+//        dd($address->toArray());
+//        foreach (auth()->user()->userAddresses as $userAddress) {
+//            $address = $userAddress;
+//        }
+        $products = [];
+
+        auth()->user()->orders()->create([
+           "delivery_method_id" => $request->delivery_method_id,
+           "payment_type_id" => $request->payment_type_id,
+           "comments" => $request->comments,
+           "total_sum" => $sum,
+            "address" => $address,
+            "products" => $request->products
+        ]);
+
+        return response()->json([
+            "success" => true
+        ]);
     }
 
     /**
@@ -32,7 +54,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return $order;
     }
 
     /**
