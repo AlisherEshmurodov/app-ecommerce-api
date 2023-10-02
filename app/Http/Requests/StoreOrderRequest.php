@@ -28,7 +28,8 @@ class StoreOrderRequest extends FormRequest
             'products.*.product_id' => 'required|numeric',
             'products.*.quantity' => 'required|numeric',
             'products.*.stock_id' => 'nullable|numeric',
-            'comments' => 'required|max:500'
+            'comments' => 'required|max:500',
+            'address_id' => 'required',
         ];
     }
 }

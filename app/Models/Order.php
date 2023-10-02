@@ -13,9 +13,9 @@ class Order extends Model
         "user_id",
         "delivery_method_id",
         "payment_type_id",
-        "comments",
+        "address",
         "total_sum",
-        "address_id",
+        "comments",
         "products",
     ];
 
