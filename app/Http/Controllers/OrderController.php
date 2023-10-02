@@ -8,8 +8,7 @@ use App\Http\Resources\OrderResource;
 use App\Models\DeliveryMethod;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\UserAddress;
-use function Ramsey\Uuid\Lazy\toString;
+
 
 class OrderController extends Controller
 {
@@ -21,17 +20,11 @@ class OrderController extends Controller
     }
 
 
-    public function create()
-    {
-        //
-    }
-
-
     public function store(StoreOrderRequest $request)
     {
-        dd($request["products"]);
         $sum = 10;
 //        $address = UserAddress::find($request->address_id);
+        $address = [];
         $products = Product::query()->limit(2)->get();
         auth()->user()->orders()->create([
             "delivery_method_id" => $request->delivery_method_id,
