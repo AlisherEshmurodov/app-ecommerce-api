@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("estimated_time");
             $table->unsignedBigInteger("sum");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

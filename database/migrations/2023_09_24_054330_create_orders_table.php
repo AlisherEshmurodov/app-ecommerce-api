@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text("comments")->nullable();
             $table->json("products");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

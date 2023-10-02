@@ -29,8 +29,9 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
+        dd($request["products"]);
         $sum = 10;
-        $address = UserAddress::find($request->address_id);
+//        $address = UserAddress::find($request->address_id);
         $products = Product::query()->limit(2)->get();
         auth()->user()->orders()->create([
             "delivery_method_id" => $request->delivery_method_id,
@@ -51,7 +52,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return $order;
+        return new OrderResource($order);
     }
 
     /**

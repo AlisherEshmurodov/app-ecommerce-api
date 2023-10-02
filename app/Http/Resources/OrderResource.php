@@ -19,12 +19,12 @@ class OrderResource extends JsonResource
         return [
             "id" => $this->id,
             "user" => $this->user,
-            "delivery_method_id" => new DeliveryMethodResource(DeliveryMethod::find($this->delivery_method_id)),
-            "payment_type_id" => new PaymentTypeResource(PaymentType::find($this->payment_type_id)),
+            "delivery_method_id" => $this->deliveryMethod,
+            "payment_type_id" => $this->paymentType,
             "address" => $this->address,
             "total_sum" => $this->total_sum,
             "comments" => $this->comments,
-            "products" => $this->products,
+            "products" => $this->products
         ];
     }
 }

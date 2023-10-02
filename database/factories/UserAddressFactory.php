@@ -17,7 +17,13 @@ class UserAddressFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "user_id" => rand(2,9),
+            "latitude" => "51.277114",
+            "longitude" => "79.245405",
+            "region" => "Tashkent",
+            "district" => "Yakkasaroy District",
+            "street" => "Qushbegi",
+            "home" => "10/3"
         ];
     }
 }
