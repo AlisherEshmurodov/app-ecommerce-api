@@ -29,6 +29,7 @@ class OrderController extends Controller
         $sum = 0;
         $address = UserAddress::find($request->address_id);
         $products = [];
+        $notFoundProducts = [];
 
         foreach ($request->products as $requestProduct) {
             $product = Product::with("stocks")->findOrFail($requestProduct['product_id']);
@@ -44,15 +45,27 @@ class OrderController extends Controller
                 $sum = $sum + ($product->order_quantity * $productResource['price']);
 
                 $products[] = $productResource;
-            }else{
+            } else {
+                if (!$product->stocks()->find($requestProduct["stock_id"])){
+                    return response()->json([
+                        "success" => false,
+                        "message" => "Not found product",
+                    ]);
+                }
+                $requestProduct["amount of product"] = $product->stocks()->find($requestProduct["stock_id"])->quantity;
+                $notFoundProducts[] = [
+                    "product_id" => $requestProduct['product_id'],
+                    "amount of product" => $requestProduct["amount of product"]
+                ];
                 return response()->json([
                     "success" => false,
-                    "message" => "Chosen wrong product's stock",
+                    "message" => "Cant create order",
+                    "not found or not enough products" => $notFoundProducts
                 ]);
             }
         }
 
-        if ($products != [] && $sum != 0) {
+        if ($notFoundProducts == [] && $products != [] && $sum != 0) {
             $ordered = auth()->user()->orders()->create([
                 "delivery_method_id" => $request->delivery_method_id,
                 "payment_type_id" => $request->payment_type_id,
@@ -68,14 +81,17 @@ class OrderController extends Controller
                     $stock['quantity'] = $stock['quantity'] - $ordered_product['order_quantity'];
                     $stock->save();
                 }
+                return response()->json([
+                    "success" => true
+                ]);
             }
-
-
-            return response()->json([
-                "success" => true
-            ]);
-        }
-        else{
+            else{
+                return response()->json([
+                    "success" => false,
+                    "message" => "Cant create order",
+                ]);
+            }
+        } else {
             return response()->json([
                 "success" => false,
                 "message" => "Cant create order",
