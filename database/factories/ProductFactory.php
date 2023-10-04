@@ -26,7 +26,7 @@ class ProductFactory extends Factory
                 "eng" => fake()->sentence(3),
                 "ru" => "Комплекты спальной мебели"
             ],
-            "price" => rand(50000, 1000000),
+            "price" => rand(100000, 1000000),
             "description" => [
                 "eng" => fake()->paragraph(5),
                 "ru" => "Матрасы. Беспружинные матрасы отличаются лёгкостью и долгим сроком службы.

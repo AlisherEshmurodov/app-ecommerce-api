@@ -11,7 +11,7 @@ class UserAddressController extends Controller
 
     public function index()
     {
-        return UserAddress::all();
+        return auth()->user()->userAddresses;
     }
 
 
@@ -49,7 +49,7 @@ class UserAddressController extends Controller
         else {
             return response()->json([
                 "success" => false,
-                "message" => "address not found in this user"
+                "message" => "address ]not found in this user"
             ]);
         }
     }

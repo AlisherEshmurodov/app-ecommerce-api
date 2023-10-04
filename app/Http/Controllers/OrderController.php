@@ -9,7 +9,8 @@ use App\Http\Resources\ProductResource;
 use App\Models\DeliveryMethod;
 use App\Models\Order;
 use App\Models\Product;
-use function PHPUnit\Framework\isNull;
+use App\Models\Stock;
+use App\Models\UserAddress;
 
 
 class OrderController extends Controller
@@ -18,6 +19,7 @@ class OrderController extends Controller
 
     public function index()
     {
+//        return auth()->user()->orders;
         return OrderResource::collection(auth()->user()->orders);
     }
 
@@ -25,8 +27,7 @@ class OrderController extends Controller
     public function store(StoreOrderRequest $request)
     {
         $sum = 0;
-//        $address = UserAddress::find($request->address_id);
-        $address = [];
+        $address = UserAddress::find($request->address_id);
         $products = [];
 
         foreach ($request->products as $requestProduct) {
@@ -51,23 +52,38 @@ class OrderController extends Controller
             }
         }
 
-        auth()->user()->orders()->create([
-            "delivery_method_id" => $request->delivery_method_id,
-            "payment_type_id" => $request->payment_type_id,
-            "address" => $address,
-            "total_sum" => $sum,
-            "comments" => $request->comments,
-            "products" => $products
-        ]);
+        if ($products != [] && $sum != 0) {
+            $ordered = auth()->user()->orders()->create([
+                "delivery_method_id" => $request->delivery_method_id,
+                "payment_type_id" => $request->payment_type_id,
+                "address" => $address,
+                "total_sum" => $sum,
+                "comments" => $request->comments,
+                "products" => $products
+            ]);
 
-        return response()->json([
-            "success" => true
-        ]);
+            if ($ordered) {
+                foreach ($products as $ordered_product) {
+                    $stock = Stock::find($ordered_product['inventory'][0]['id']);
+                    $stock['quantity'] = $stock['quantity'] - $ordered_product['order_quantity'];
+                    $stock->save();
+                }
+            }
+
+
+            return response()->json([
+                "success" => true
+            ]);
+        }
+        else{
+            return response()->json([
+                "success" => false,
+                "message" => "Cant create order",
+            ]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Order $order)
     {
         return new OrderResource($order);
