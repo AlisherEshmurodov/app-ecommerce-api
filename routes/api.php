@@ -8,6 +8,8 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\StatusOrderController;
 use App\Http\Controllers\UserAddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +36,8 @@ Route::apiResource('orders', OrderController::class)->middleware("auth:sanctum")
 Route::apiResource('delivery-methods', DeliveryMethodController::class);
 Route::apiResource('payment-types', PaymentTypeController::class);
 Route::apiResource('user-addresses', UserAddressController::class)->middleware("auth:sanctum");
+Route::apiResource('statuses', StatusController::class)->middleware("auth:sanctum");
+Route::apiResource('statuses.orders', StatusOrderController::class)->middleware("auth:sanctum");
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('logout', [AuthController::class, 'logout']);

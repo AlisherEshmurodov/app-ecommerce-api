@@ -14,6 +14,7 @@ class Order extends Model
         "user_id",
         "delivery_method_id",
         "payment_type_id",
+        "status_id",
         "address",
         "total_sum",
         "comments",
@@ -40,6 +41,11 @@ class Order extends Model
     public function deliveryMethod()
     {
         return $this->belongsTo(DeliveryMethod::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 
 }

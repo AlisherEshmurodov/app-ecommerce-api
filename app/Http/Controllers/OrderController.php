@@ -69,6 +69,7 @@ class OrderController extends Controller
             $ordered = auth()->user()->orders()->create([
                 "delivery_method_id" => $request->delivery_method_id,
                 "payment_type_id" => $request->payment_type_id,
+                "status_id" => in_array($request->payment_type_id, [1,2]) ? 1 : 10,
                 "address" => $address,
                 "total_sum" => $sum,
                 "comments" => $request->comments,

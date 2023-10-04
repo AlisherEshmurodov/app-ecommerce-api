@@ -5,28 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStatusRequest;
 use App\Http\Requests\UpdateStatusRequest;
 use App\Models\Status;
+use Illuminate\Http\Request;
 
 class StatusController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        //
+        if ($request->has("for")){
+            return Status::where("for", $request->for)->get();
+        }
+        return Status::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreStatusRequest $request)
     {
         //
