@@ -15,12 +15,6 @@ class StockController extends Controller
     }
 
 
-    public function create()
-    {
-        //
-    }
-
-
     public function store(StoreStockRequest $request)
     {
         //
@@ -28,12 +22,6 @@ class StockController extends Controller
 
 
     public function show(Stock $stock)
-    {
-        //
-    }
-
-
-    public function edit(Stock $stock)
     {
         //
     }

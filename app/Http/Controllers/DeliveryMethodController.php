@@ -9,9 +9,7 @@ use App\Models\DeliveryMethod;
 
 class DeliveryMethodController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         return DeliveryMethodResource::collection(DeliveryMethod::all());
@@ -23,9 +21,7 @@ class DeliveryMethodController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(DeliveryMethod $deliveryMethod)
     {
         //
@@ -37,9 +33,7 @@ class DeliveryMethodController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(DeliveryMethod $deliveryMethod)
     {
         //
