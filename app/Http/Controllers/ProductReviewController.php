@@ -13,7 +13,7 @@ class ProductReviewController extends Controller
     public function index(Product $product)
     {
         return response([
-            "average_rating" => $product->reviews()->avg('rating'),
+            "average_rating" => round($product->reviews()->avg('rating'), 1),
             "review_count" => $product->reviews()->count(),
             "review" => ReviewResource::collection($product->reviews()->paginate(10))
         ]);
