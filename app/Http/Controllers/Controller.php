@@ -29,6 +29,7 @@ class Controller extends BaseController
         ]);
     }
 
+
     public function error($message = null, $data = null)
     {
         return response()->json([
