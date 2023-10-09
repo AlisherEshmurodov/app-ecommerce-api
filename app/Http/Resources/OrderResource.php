@@ -18,9 +18,9 @@ class OrderResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "user" => $this->user,
-            "delivery_method" => $this->deliveryMethod,
-            "payment_type" => $this->paymentType,
+            "user" => new UserResource($this->user),
+            "delivery_method" => new DeliveryMethodResource($this->deliveryMethod),
+            "payment_type" => new PaymentTypeResource($this->paymentType),
             "status" => $this->status,
             "address" => $this->address,
             "total_sum" => $this->total_sum,

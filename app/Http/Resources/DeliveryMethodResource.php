@@ -16,8 +16,8 @@ class DeliveryMethodResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "tarif" => $this->getTranslations("name"),
-            "yetkazib_berish_vaqti" => $this->getTranslations("estimated_time"),
+            "tariff" => $this->getTranslations("name"),
+            "estimated_time" => $this->getTranslations("estimated_time"),
             "sum" => $this->sum,
         ];
     }
