@@ -10,7 +10,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-
     public function response($data = null)
     {
         return response()->json([
