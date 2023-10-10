@@ -15,14 +15,13 @@ class Value extends Model
     use HasFactory, HasTranslations;
 
     protected $fillable = [
-        "attribute_id",
         "name",
     ];
 
     public $translatable = ['name'];
 
-    public function attribute()
+    public function valuable()
     {
-        return $this->belongsTo(Attribute::class);
+        return $this->morphTo();
     }
 }
