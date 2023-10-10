@@ -42,4 +42,7 @@ class AuthController extends Controller
     {
         return $this->response(new UserResource($request->user()));
     }
+
+    public function change_password(Request $request){
+    }
 }

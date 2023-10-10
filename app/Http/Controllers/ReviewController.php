@@ -11,7 +11,7 @@ class ReviewController extends Controller
 
     public function index()
     {
-        return auth()->user()->reviews()->with('product')->paginate(10);
+        return $this->response(auth()->user()->reviews()->with('product')->paginate(10));
     }
 
 

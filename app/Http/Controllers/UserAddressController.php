@@ -11,22 +11,20 @@ class UserAddressController extends Controller
 
     public function index()
     {
-        return auth()->user()->userAddresses;
+        return $this->response(auth()->user()->userAddresses);
     }
 
 
     public function store(StoreUserAddressRequest $request)
     {
-        auth()->user()->userAddresses()->create($request->toArray());
-        return response()->json([
-            "success" => true
-        ]);
+        $userAddress =  auth()->user()->userAddresses()->create($request->toArray());
+        return $this->success("User Address successfully created", $userAddress);
     }
 
 
     public function show(UserAddress $userAddress)
     {
-        //
+        return $this->response($userAddress);
     }
 
 
@@ -35,22 +33,15 @@ class UserAddressController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(UserAddress $userAddress)
     {
-        if (UserAddress::where("id", $userAddress->id)->exists()) {
+        if (auth()->user()->userAddresses()->where("user_id", $userAddress->user_id)->exists()) {
             UserAddress::where("id", $userAddress->id)->delete();
-            return response()->json([
-                "success" => true
-            ]);
+            return $this->success("Successfully deleted");
         }
         else {
-            return response()->json([
-                "success" => false,
-                "message" => "address ]not found in this user"
-            ]);
+            return $this->error("address not found in this user");
         }
     }
 }

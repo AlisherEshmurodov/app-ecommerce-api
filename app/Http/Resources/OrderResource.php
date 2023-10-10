@@ -25,7 +25,8 @@ class OrderResource extends JsonResource
             "address" => $this->address,
             "total_sum" => $this->total_sum,
             "comments" => $this->comments,
-            "products" => $this->products
+            "products" => $this->products,
+            "created_at" => $this->created_at
         ];
     }
 }

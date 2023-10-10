@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum("rating", [1, 2, 3, 4, 5]);
             $table->text("body")->nullable();
             $table->timestamps();
+            $table->unique(['user_id', 'product_id']);
         });
     }
 
