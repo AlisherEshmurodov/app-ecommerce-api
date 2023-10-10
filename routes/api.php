@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StatusOrderController;
 use App\Http\Controllers\UserAddressController;
@@ -42,6 +43,7 @@ Route::apiResource('statuses', StatusController::class)->middleware("auth:sanctu
 Route::apiResource('statuses.orders', StatusOrderController::class)->middleware("auth:sanctum");
 Route::apiResource('reviews', ReviewController::class)->middleware("auth:sanctum");
 Route::apiResource('products.reviews', ProductReviewController::class)->middleware("auth:sanctum");
+Route::apiResource('settings', SettingsController::class)->middleware("auth:sanctum");
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('logout', [AuthController::class, 'logout']);
