@@ -11,7 +11,7 @@ class UpdateUserSettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateUserSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'switch' => 'nullable',
+            'value_id' => 'nullable',
         ];
     }
 }

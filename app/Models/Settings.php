@@ -18,4 +18,9 @@ class Settings extends Model
     {
         return $this->morphMany(Value::class, "valuable");
     }
+
+    public function userSettings()
+    {
+        return $this->hasMany(UserSetting::class);
+    }
 }

@@ -11,7 +11,7 @@ class StoreUserSettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreUserSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "setting_id" => "required",
+            "value_id" => "nullable",
+            "switch" => "nullable",
         ];
     }
 }

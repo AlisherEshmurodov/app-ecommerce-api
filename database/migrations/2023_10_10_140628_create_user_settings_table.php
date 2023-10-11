@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('user_settings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("user_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("setting_id")->constrained()->cascadeOnDelete();
+            $table->foreignId("value_id")->nullable()->constrained()->cascadeOnDelete();
+            $table->boolean("switch")->nullable()->default(true);
             $table->timestamps();
         });
     }

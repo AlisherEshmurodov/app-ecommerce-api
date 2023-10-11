@@ -14,6 +14,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\StatusOrderController;
 use App\Http\Controllers\UserAddressController;
+use App\Http\Controllers\UserSettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,7 @@ Route::apiResource('statuses.orders', StatusOrderController::class)->middleware(
 Route::apiResource('reviews', ReviewController::class)->middleware("auth:sanctum");
 Route::apiResource('products.reviews', ProductReviewController::class)->middleware("auth:sanctum");
 Route::apiResource('settings', SettingsController::class)->middleware("auth:sanctum");
+Route::apiResource('user-settings', UserSettingController::class)->middleware("auth:sanctum");
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('logout', [AuthController::class, 'logout']);

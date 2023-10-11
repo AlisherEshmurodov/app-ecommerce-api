@@ -24,4 +24,9 @@ class Value extends Model
     {
         return $this->morphTo();
     }
+
+    public function userSettings()
+    {
+        return $this->hasMany(UserSetting::class);
+    }
 }

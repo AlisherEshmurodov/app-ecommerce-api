@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class UserSetting extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function setting()
+    {
+        return $this->belongsTo(Settings::class);
+    }
+
+    public function value()
+    {
+        return $this->belongsTo(Value::class);
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SettingResource extends JsonResource
+class ValueResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,8 @@ class SettingResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "setting_id" => $this->id,
-            "name" => $this->getTranslations('name'),
-            "type" => $this->type,
-            "value" => ValueResource::collection($this->values)
+            "id" => $this->id,
+            "name" => $this->getTranslations("name"),
         ];
     }
 }
