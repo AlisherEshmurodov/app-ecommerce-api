@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\DeliveryMethodController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentCardTypeController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductReviewController;
@@ -46,6 +47,7 @@ Route::apiResource('reviews', ReviewController::class)->middleware("auth:sanctum
 Route::apiResource('products.reviews', ProductReviewController::class)->middleware("auth:sanctum");
 Route::apiResource('settings', SettingsController::class)->middleware("auth:sanctum");
 Route::apiResource('user-settings', UserSettingController::class)->middleware("auth:sanctum");
+Route::apiResource('payment-card-types', PaymentCardTypeController::class)->middleware("auth:sanctum");
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('logout', [AuthController::class, 'logout']);
