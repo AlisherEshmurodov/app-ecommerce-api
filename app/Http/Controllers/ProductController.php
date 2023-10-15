@@ -11,12 +11,8 @@ class ProductController extends Controller
 
     public function index()
     {
-
-//        return Product::all();
-//        return Product::with('stocks')->cursorPaginate(25);
-        return ProductResource::collection(Product::cursorPaginate(25));
+        return $this->response(ProductResource::collection(Product::cursorPaginate(25)));
     }
-
 
 
     public function store(Request $request)
@@ -40,5 +36,16 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function related(Product $product)
+    {
+        return $this->response(ProductResource::collection(
+            Product::query()
+                ->where("category_id", $product->category_id)
+                ->limit(10)
+                ->get()
+        ));
     }
 }

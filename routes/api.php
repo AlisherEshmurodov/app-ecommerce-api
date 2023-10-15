@@ -34,6 +34,14 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware('auth:sanctum')->group(function () {
 //});
 
+Route::post('login', [AuthController::class, 'login']);
+Route::get('logout', [AuthController::class, 'logout']);
+Route::post('register', [AuthController::class, 'register']);
+Route::get('user', [AuthController::class, 'user'])->middleware("auth:sanctum");
+Route::post('change-password', [AuthController::class, 'change_password'])->middleware("auth:sanctum");
+
+Route::get('products/{product}/related', [ProductController::class, 'related']);
+
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('products', ProductController::class);
 Route::apiResource('categories.products', CategoryProductController::class);
@@ -51,8 +59,4 @@ Route::apiResource('user-settings', UserSettingController::class)->middleware("a
 Route::apiResource('payment-card-types', PaymentCardTypeController::class)->middleware("auth:sanctum");
 Route::apiResource('user-payment-cards', UserPaymentCardController::class)->middleware("auth:sanctum");
 
-Route::post('login', [AuthController::class, 'login']);
-Route::get('logout', [AuthController::class, 'logout']);
-Route::post('register', [AuthController::class, 'register']);
-Route::get('user', [AuthController::class, 'user'])->middleware("auth:sanctum");
-Route::post('change-password', [AuthController::class, 'change_password'])->middleware("auth:sanctum");
+

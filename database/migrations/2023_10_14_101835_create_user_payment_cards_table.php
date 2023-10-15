@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->foreignId("payment_card_type_id")->constrained()->cascadeOnDelete();
             $table->text("name")->nullable();
-            $table->text("number")->unique();
+            $table->text("number");
             $table->text("exp_date");
             $table->text("holder_name");
             $table->text("last_four_number");

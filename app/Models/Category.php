@@ -12,8 +12,10 @@ class Category extends Model
     use HasFactory, HasTranslations;
 
     protected $fillable = [
+        'parent_id',
         'name',
         'icon',
+        'order'
     ];
 
     public $translatable = ['name'];
@@ -22,5 +24,15 @@ class Category extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function parentCategory()
+    {
+        return $this->belongsTo(self::class, "parent_id", "id");
+    }
+
+    public function childCategories()
+    {
+        return $this->hasMany(self::class, "parent_id", "id");
     }
 }
