@@ -17,4 +17,14 @@ class StatsController extends Controller
                 ->count()
         );
     }
+
+    public function ordersSalesSum()
+    {
+        return $this->response(
+            Order::query()
+                ->where("created_at", ">=", Carbon::now()->subMonth())
+                ->whereRelation("status", "code", "closed")
+                ->sum("total_sum")
+        );
+    }
 }
