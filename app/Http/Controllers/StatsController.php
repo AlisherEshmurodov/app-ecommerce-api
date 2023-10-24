@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\DeliveryMethod;
 use App\Models\Order;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\LazyCollection;
 
 class StatsController extends Controller
 {
@@ -36,6 +39,9 @@ class StatsController extends Controller
         );
     }
 
+
+
+
     public function ordersSalesSum(Request $request)
     {
         $from = Carbon::now()->subMonth();
@@ -60,6 +66,9 @@ class StatsController extends Controller
                 ->sum("total_sum")
         );
     }
+
+
+
 
     public function deliveryMethodsRatio(Request $request)
     {
@@ -105,5 +114,43 @@ class StatsController extends Controller
         }
 //            Cache::put("deliveryMethodsRatio", $response, Carbon::now()->addDay());
             return $this->response($response);
+    }
+
+
+
+
+    public function ordersCountByDays(Request $request)
+    {
+        $from = Carbon::now()->subMonth();
+        $to = Carbon::now();
+        if ($request->has("from")) {
+            $from = $request->from;
+        }
+
+        if ($request->has("to")) {
+            $to = $request->to;
+        }
+
+        if ($request->has(["from", "to"])) {
+            $from = $request->from;
+            $to = $request->to;
+        }
+
+        $days = CarbonPeriod::create($from, $to);
+        $response = new Collection();
+
+        LazyCollection::make($days->toArray())->each(function ($day) use ($response){
+
+            $ordersCount = Order::query()
+                ->whereBetween("created_at", [Carbon::parse($day->format("Y-m-d"))->startOfDay(), Carbon::parse($day->format("Y-m-d"))->endOfDay()])
+                ->whereRelation("status", "code", "closed")
+                ->count();
+            $response[] = [
+                "date" => $day->format("Y-m-d"),
+                "orders_count" => $ordersCount,
+            ];
+        });
+
+        return $this->response($response);
     }
 }
