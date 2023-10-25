@@ -27,11 +27,13 @@ class UserSeeder extends Seeder
             "password" => Hash::make("customer123"),
         ]);
 
-        $admin->roles()->attach(1);
-        $customer->roles()->attach(2);
+//        $admin->roles()->attach(1);
+//        $customer->roles()->attach(2);
 
 
-        User::factory()->count(10)->hasAttached(Role::find(2))->create();
+        User::factory()->count(10)
+//            ->hasAttached(Role::find(2))
+            ->create();
 
     }
 }
